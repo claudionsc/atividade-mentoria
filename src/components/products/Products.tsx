@@ -18,9 +18,10 @@ export const Products = () => {
               <li>R$ {product.price}</li>
               <li>Qtd: {product.quantity}</li>
              <Button onClick={() => addCartItem({
+              id: product.id,
               name: product.name,
               price: product.price,
-              quantity: product.quantity
+              quantity: product.quantity,
               })}>Comprar</Button>
             </span>
           );
