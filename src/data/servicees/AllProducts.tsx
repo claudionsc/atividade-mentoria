@@ -1,3 +1,4 @@
+
 export type Product = {
   id: number, 
   name: string,
@@ -17,3 +18,7 @@ export const allProducts: Array<Product> = [
     { id: 9, name: "Sapato Casual", price: 69.99, quantity: 30 },
     { id: 10, name: "Blusa de Frio", price: 49.99, quantity: 45 },
   ];
+
+
+
+ 
