@@ -13,11 +13,12 @@ export const Products = () => {
       <ul className="product-list">
         {productList.map((product) => {
           return (
-            <span className="product-card">
+            <span data-testId="product" key={product.id} className="product-card">
               <li>{product.name}</li>
               <li>R$ {product.price}</li>
               <li>Qtd: {product.quantity}</li>
              <Button onClick={() => addCartItem({
+              id: product.id,
               name: product.name,
               price: product.price,
               quantity: product.quantity
