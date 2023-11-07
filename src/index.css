@@ -133,3 +133,39 @@ li{
   background-color: #464646;
   height: auto;
 }
+
+.cart-item{
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1% 0;
+  padding: 0 5%;
+  border-top: 1px solid black ;
+  border-bottom: 1px solid black ;
+}
+
+.cart-item-subtotal{
+  text-align: left;
+}
+
+.remove-item{
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: bold;
+  width: 20%;
+}
+
+.counter-cart{
+  border: 1px black solid;
+  border-radius: 10px;
+  width: 15%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 1%;
+
+}
+
+

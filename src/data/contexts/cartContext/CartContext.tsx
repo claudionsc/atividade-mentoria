@@ -2,9 +2,11 @@ import { createContext, useContext, useState } from "react";
 
 export interface ICartContext  {
     productList: Array<Product>,
-    setProducts: (products: Array<Product>) => void,
     cartItems: Array<Product>;
+    setProducts: (products: Array<Product>) => void,
     addCartItem: (product: Product) => void;
+    removeCartItem: (product: Product) => void;
+    cleanCart: () => void;
 }
 
 type Product = {
@@ -42,8 +44,17 @@ export const CartContextProvider = ({children}: CartContextProviderProps) => {
         setCartItems((prev) => [...prev, product]);
       };
 
+
+      const removeCartItem = (product: Product) => {
+        setCartItems((prev) => prev.filter((item) => item.id !== product.id));
+      };
+
+      const cleanCart = () => {
+        setCartItems([]);
+      };
+
     return (
-        <CartContext.Provider value={{ productList: products, setProducts, cartItems, addCartItem }}>
+        <CartContext.Provider value={{ productList: products, setProducts, cartItems, addCartItem, removeCartItem, cleanCart }}>
             {children}
         </CartContext.Provider>
     )
