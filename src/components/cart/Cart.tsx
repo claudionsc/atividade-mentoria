@@ -4,8 +4,10 @@ import { CartItems } from "../cartItems/CartItems";
 import { useState } from "react";
 
 export const Cart = () => {
-  const { cartItems, removeCartItem, cleanCart } = useCartContext();
+  const { cartItems, removeCartItem, cleanCart, productList } = useCartContext();
 
+  console.log(productList)
+  // console.log(useCartContext())
   const [counter, setCounter] = useState(1);
 
   const decrement = () => {
@@ -15,9 +17,6 @@ export const Cart = () => {
   const increment = () => {
     setCounter(counter + 1);
   };
-
-
-  console.log(cartItems);
 
   return (
     <aside id="cart">

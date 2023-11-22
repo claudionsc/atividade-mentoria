@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-export interface ICartContext  {
+export interface ICartContext  { // dados passados para o nosso componente interagir
     productList: Array<Product>,
     cartItems: Array<Product>;
     setProducts: (products: Array<Product>) => void,
@@ -9,7 +9,7 @@ export interface ICartContext  {
     cleanCart: () => void;
 }
 
-type Product = {
+export type Product = {
     id: number
     name: string,
     price:  number,
@@ -37,7 +37,7 @@ type CartContextProviderProps = {
 const CartContext = createContext<ICartContext | null>(null)
 
 export const CartContextProvider = ({children}: CartContextProviderProps) => {
-    const [products, setProducts] = useState<Array<Product>>(allProducts);
+  const [products, setProducts] = useState<Array<Product>>(allProducts);
     const [cartItems, setCartItems] = useState<Array<Product>>([]);
 
     const addCartItem = (product: Product) => {
@@ -63,6 +63,7 @@ export const CartContextProvider = ({children}: CartContextProviderProps) => {
 
 export const useCartContext = () => {
     const context = useContext(CartContext);
+    console.log({context})
     if (!context) {
       throw new Error("useCartContext must be used within a CartContextProvider");
     }

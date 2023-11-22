@@ -12,7 +12,6 @@ function App() {
         <Products />
         <Cart />
       </CartContextProvider>
-      <h1>Test</h1>
     </main>
   );
 }
