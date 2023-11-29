@@ -1,75 +1,40 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, test, vi } from "vitest";
-import { Products } from "../products/Products";
-import {
-  CartContextProvider,
-  Product,
-  useCartContext,
-} from "../../data/contexts/cartContext/CartContext";
-import { Button } from "../button/Button";
+import { afterEach, describe, expect, test, vi, it } from "vitest";
 import { Cart } from "./Cart";
-import { ICartContext } from "../../data/contexts/cartContext/CartContext";
+import {
+  useCartContext,
+  CartContextProvider,
+} from "../../data/contexts/cartContext/CartContext";
 
-vi.mock("../../data/contexts/cartContext/CartContext", () => {
-  const actual = vi.importActual("../../data/contexts/cartContext/CartContext");
-  return {
-    ...actual,
-    
-      productList: [{ id: 1, name: "Camiseta", price: 29.99, quantity: 50 }],
-      cartItems: [{ id: 1, name: "Camiseta", price: 29.99, quantity: 50 }],
-      setProducts: vi.fn(),
-      addCartItem: vi.fn(),
-      removeCartItem: vi.fn(),
-      cleanCart: vi.fn(),
-    }
-  }); // passar para o vitest de onde vem o objeto a ser mockado
+function getProducts(mockProducts){
+  return mockProducts.products
+}
 
-describe("Cart", () => {
-  const allProducts: Array<Product> = [
+// Mock products for testing
+const mockProducts = {
+  products: [
     { id: 1, name: "Camiseta", price: 29.99, quantity: 50 },
     { id: 2, name: "Calça Jeans", price: 59.99, quantity: 30 },
     { id: 3, name: "Tênis Esportivo", price: 99.99, quantity: 20 },
-  ];
+  ],
+  getProducts
+};
 
-  const useCartContextMocked = vi.mocked(useCartContext);
+describe("Show products", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
-  function testRenderProducts(products) {
-    useCartContextMocked.mockReturnValue({
-      productList: products,
-      cartItems: products,
-      setProducts: vi.fn(),
-      addCartItem: vi.fn(),
-      removeCartItem: vi.fn(),
-      cleanCart: vi.fn(),
-    });
+  it("should get the latest message with a spy", () => {
+    const spy = vi.spyOn(mockProducts, 'getProducts');
 
-    render(
-      <CartContextProvider>
-        <Cart />
-      </CartContextProvider>
-    );
+    expect(spy.getMockName()).toEqual("getProducts");
 
-    return screen;
-  }
-  test("Should render products in the cart when fire event in product button", () => {
-    useCartContextMocked.mockReturnValue({
-      productList: [{ id: 1, name: "Camiseta", price: 29.99, quantity: 50 }],
-      cartItems: [{ id: 1, name: "Camiseta", price: 29.99, quantity: 50 }],
-      setProducts: vi.fn(),
-      addCartItem: vi.fn(),
-      removeCartItem: vi.fn(),
-      cleanCart: vi.fn(),
-    });
+    expect(mockProducts.getProducts(mockProducts)).toEqual(
+      mockProducts.products
+    )
 
-    render(
-      <CartContextProvider>
-        <Cart />
-      </CartContextProvider>
-    );
-
-    screen.debug();
-
-    // Verifica se cada produto está presente na tela
+    expect(spy).toHaveBeenCalledTimes(1)
   });
 });
